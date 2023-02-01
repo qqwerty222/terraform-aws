@@ -1,3 +1,4 @@
+#-----Network-----
 module "dns_net" {
     source = "../modules/network"
     availability_zone = var.availability_zone
@@ -9,29 +10,61 @@ module "dns_net" {
     subnet_cidr = "10.0.1.0/24"
 }
 
-module "sec_group" {
-    source = "../modules/security_groups"
+#-----EC2-----
+module "dns_stack" {
+    source = "../modules/ec2"
 
-    vpc_id = module.dns_net.vpc_id
-    cidr_block = module.dns_net.subnet_cidr
+    list = ["user", "nginx"]
+    instance_type     = "t2.micro"
+    ami               = "ami-03e08697c325f02ab"
+
+    availability_zone = var.availability_zone
+    subnet_id         = module.dns_net.subnet_id
+    private_ip        = ["10.0.1.10", "10.0.1.11"]
+
+    key_name          = module.key_pair.key_name
 }
 
-module "test_stack" {
-    source = "../modules/test_stack"
-    availability_zone   = var.availability_zone
-    
-    subnet_id           = module.dns_net.subnet_id
+module "ansible" {
+    source = "../modules/ec2"
 
-    dns_sec_groups = module.sec_group.dns_id
-    ngx_sec_groups = module.sec_group.wserver_id
-    user_sec_groups = module.sec_group.ssh_id
+    list = ["ansible"]
+    instance_type     = "t2.micro"
+    ami               = "ami-03e08697c325f02ab"
 
-    key_name = module.key_pair.key_name
+    associate_public_ip_address = true
+    availability_zone = var.availability_zone
+    subnet_id         = module.dns_net.subnet_id
+    private_ip        = ["10.0.1.15"]
+   
+    key_name = "ansible"
+    sec_group_ids = [module.ssh_from_internet.ssh_id]
 }
 
+#-----Security-----
 module "key_pair" {
     source = "../modules/aws_key_pair"
     
     key_name   = "test-stack"
-    public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5BtbKmfgXmOis4HLXX1Ue3wogne7z5wckHXgkbCvg6wUk6UWqBB3WQX6UCEKOUW4VbUGEJsT9YTwRDGSg1EAIPCCelAR2T39XS9+uuM3Hi1ygb5V+KNvSdEMUuLVcV7lPJlMAL6y997WBzQaYAlAAUEPQkC2RoPR0/O5HNbZffXOJZSFacXLc/Q3I8DyVOiz32P7AEfyHW387SU8aekmF4oV9L4B3gnyufQ4qY4VAnLlpej8akp1FGSJTjsN3OXx2ONQkr69ZzxQhzvW1qkJF5aLo2SfEzRt+sJRHwy0d3JCFvP/I/TTrOQJTGzGwMFVp4gcIVpPYR3NVBRfI2Oy0oqbRzYvsqe3EanCFR3Feq26pGS+PlVR9TSgHFO6rrW6KjvpUijdH5ynMPVmzc2K5w0kc578ho2FcgK/R02OVc/WrXn9JY4i3Erw4ZvmHqFeNtGEG6USCNE4Xcl7rz/O4Ba+NRt8QcuEkvtn1wyX4UHpLrANpiRSoOK701n3MxzM= bohdan@PF2FXPPG"
+    public_key = var.public_ssh_test
+}
+
+module "ssh_from_internet" {
+    source = "../modules/security_groups"
+
+    name        = "ssh_from_internet"
+    description = "open port 22 to the internet"
+
+    vpc_id     = module.dns_net.vpc_id
+
+    ingress_to_port   = 22
+    ingress_from_port = 22
+    ingress_protocol  = "tcp"
+    ingress_cidr      = var.cidr_1
+    
+    egress_to_port    = 0
+    egress_from_port  = 0
+    egress_protocol   = "-1" 
+    egress_cidr       = var.cidr_1
+
 }
