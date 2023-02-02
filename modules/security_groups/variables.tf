@@ -16,7 +16,7 @@ variable "vpc_id" {
 #-----InboundRule------
 variable "ingress_to_port" {
     type    = number
-    default = null
+    default = 0
 }
 
 variable "ingress_from_port" {
@@ -37,7 +37,7 @@ variable "ingress_cidr" {
 #-----OutboundRule-----
 variable "egress_to_port" {
     type    = number
-    default = null
+    default = 0
 }
 
 variable "egress_from_port" {

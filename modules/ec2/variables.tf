@@ -21,7 +21,12 @@ variable "private_ip" {
 }
 
 variable "associate_public_ip_address" {
-    type   = bool
+    type    = bool
+    default = false
+}
+
+variable "enable_dns_arec" {
+    type    = bool
     default = false
 }
 
@@ -36,8 +41,24 @@ variable "instance_type" {
     default = null
 }
 
-variable "user_data" {
+variable "provision_conf" {
     type = string
+    default = null
+}
+
+variable "user_to_provision" {
+    type = string
+    default = null
+}
+
+variable "private_key_to_provision" {
+    type = string
+    default = null
+    sensitive = true
+}
+
+variable "commands" {
+    type = list
     default = null
 }
 

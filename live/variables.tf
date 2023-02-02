@@ -12,3 +12,7 @@ variable "cidr_1" {
     type = string
     sensitive = true
 }
+
+data "template_file" "ansible_master" {
+    template = file("../cloud-init_scripts/install_ansible_controller.yaml")
+}

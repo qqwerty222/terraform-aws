@@ -12,3 +12,4 @@ provider "aws" {
   shared_credentials_files  = ["/home/bohdan/.aws/credentials"]
   region = "eu-central-1"
 }
+
