@@ -1,0 +1,27 @@
+#cloud-config
+#https://cloudinit.readthedocs.io/en/latest/reference/examples.html#configure-instance-to-be-an-ansible-controller
+
+package_update: true
+package_upgrade: true
+packages:
+  - git
+  - python3-pip
+
+#create ansible user, "wheel" group to allow use sudo ??
+users:
+- name: ansible
+  gecos: Ansible User
+  shell: /bin/bash
+  groups: users,admin,wheel,lxd
+  sudo: ALL=(ALL) NOPASSWD:ALL
+
+- name: ubuntu
+  gecos: default
+  shell: /bin/bash
+  groups: users,admin,wheel,lxd
+  # sudo: ALL=(ALL) NOPASSWD:ALL
+
+#install ansible and add-ons
+runcmd: 
+  - [ python3, -m, pip, install, ansible]
+
