@@ -21,7 +21,7 @@ resource "aws_security_group" "sec_group" {
 
     tags = {
         Name    = var.name
-        Created = "terraform"
+        Created = "Terraform"
     }
 }
 
