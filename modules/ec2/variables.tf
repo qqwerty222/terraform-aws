@@ -59,7 +59,7 @@ variable "private_key_to_provision" {
 
 variable "commands" {
     type = list
-    default = null
+    default = ["echo 'Null'"]
 }
 
 #-----Security-----

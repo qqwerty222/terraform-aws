@@ -17,18 +17,21 @@ resource "aws_instance" "ec2" {
     
     user_data = var.provision_conf
 
-    provisioner "remote-exec" {
-        inline = var.commands
-    }
-    connection {
-        type = "ssh"
-        user = var.user_to_provision
-        host = self.public_ip
-        private_key = var.private_key_to_provision
-    }
+    # provisioner "remote-exec" {
+    #     inline = var.commands
+    #     # on_failure = continue
+    # }
+    # connection {
+    #     type = "ssh"
+    #     user = var.user_to_provision
+    #     host = self.public_ip #!= "" ? self.public_ip : "127.0.0.1"
+    #     private_key = var.private_key_to_provision
+    #     agent = false
+    # }
 
     tags = {
-        Name = element(var.list, count.index)
+        Name    = element(var.list, count.index)
+        Created = "Terraform"
     }
 }
 
