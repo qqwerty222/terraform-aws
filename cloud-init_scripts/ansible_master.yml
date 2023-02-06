@@ -1,0 +1,22 @@
+#cloud-config
+packages: 
+  - git
+  - ansible
+
+write_files: 
+  - path: /run/tmp/hosts
+    owner: root:root
+    permissions: "0644"
+    content: "${hosts}"
+
+  - path: /run/tmp/group_vars/all
+    owner: root:root
+    permissions: "0644"
+    content: "${gvars_all}"
+
+runcmd:
+  - git clone "https://github.com/qqwerty222/dns-ngx-ansible.git" /run/playbook 
+  - mv /run/tmp/hosts /run/playbook/
+  - mv /run/tmp/group_vars/all /run/playbook/group_vars/
+
+

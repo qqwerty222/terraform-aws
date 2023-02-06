@@ -46,21 +46,31 @@ variable "provision_conf" {
     default = null
 }
 
-variable "user_to_provision" {
-    type = string
-    default = null
-}
-
 variable "private_key_to_provision" {
     type = string
     default = null
     sensitive = true
 }
 
-variable "commands" {
-    type = list
+# variable "ip_to_provision" {
+#     type = string
+#     default = 
+# }
+
+variable "source_local" {
+    type = string
     default = null
 }
+
+variable "dest_remote" {
+    type = string
+    default = null
+}
+
+# variable "commands" {
+#     type = list
+#     default = ["echo 'Null'"]
+# }
 
 #-----Security-----
 variable "key_name" {

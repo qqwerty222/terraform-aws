@@ -9,9 +9,6 @@ output "ec2_ip" {
 #     value = aws_instance.ec2.public_ip
 # }
 
-# output "ec2_private_ips" {
-#     value = [
-#         for x in aws_instance.ec2:
-#         "${x.private_ip}"
-#     ]
-# }
+output "private_ips" {
+    value = var.private_ip
+}

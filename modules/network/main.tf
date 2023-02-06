@@ -3,7 +3,8 @@ resource "aws_vpc" "vpc" {
 
 
     tags = {
-        Name = var.vpc_name
+        Name    = var.vpc_name
+        Created = "Terraform"
     }
 }
 
@@ -13,7 +14,8 @@ resource "aws_subnet" "subnet" {
     availability_zone = var.availability_zone
 
     tags = {
-        Name = var.subnet_name
+        Name    = var.subnet_name
+        Created = "Terraform"
     }
 }
 
@@ -27,7 +29,8 @@ resource "aws_internet_gateway" "int_gateway" {
     vpc_id = aws_vpc.vpc.id
 
     tags = {
-        Name = "dns_gateway"
+        Name    = "dns_gateway"
+        Created = "Terraform" 
     }
 }
 

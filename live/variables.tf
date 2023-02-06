@@ -13,6 +13,12 @@ variable "cidr_1" {
     sensitive = true
 }
 
-data "template_file" "ansible_master" {
-    template = file("../cloud-init_scripts/install_ansible_controller.yaml")
+variable "dns_stack_playbook" {
+    type = string
+    default = "https://github.com/qqwerty222/dns-ngx-ansible.git"
 }
+
+
+
+
+

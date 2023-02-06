@@ -16,19 +16,21 @@ resource "aws_instance" "ec2" {
     vpc_security_group_ids = var.sec_group_ids
     
     user_data = var.provision_conf
-
-    provisioner "remote-exec" {
-        inline = var.commands
+    provisioner "file" {
+        source = var.source_local
+        destination = var.dest_remote
+        on_failure = continue
     }
     connection {
         type = "ssh"
-        user = var.user_to_provision
-        host = self.public_ip
+        host = self.public_ip 
+        user = "ubuntu"
         private_key = var.private_key_to_provision
     }
 
     tags = {
-        Name = element(var.list, count.index)
+        Name    = element(var.list, count.index)
+        Created = "Terraform"
     }
 }
 

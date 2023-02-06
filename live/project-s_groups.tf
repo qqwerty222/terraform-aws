@@ -30,7 +30,7 @@ module "ssh_local" {
     ingress_cidr      = module.dns_net.subnet_cidr
     
     egress_protocol   = "-1" 
-    egress_cidr       = module.dns_net.subnet_cidr
+    egress_cidr       = "0.0.0.0/0"
 }
 
 module "icmp" {
