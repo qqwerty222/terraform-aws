@@ -1,2 +1,4 @@
 live/.terraform
+live/.terraform.tfstate
+live/.terraform.tfstate.backup
 live/secret.auto.tfvars
