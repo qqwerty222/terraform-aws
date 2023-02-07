@@ -1,9 +1,11 @@
+# variables below will be filled in modules ../live/project-ec2
 variable "availability_zone" {
     type    = string 
     default = null
 }
 
 #-----List-------
+# list of names, to run multiple ec2 from one module
 variable "list" {
     type = list
     default = null
@@ -15,6 +17,7 @@ variable "subnet_id" {
     default = null
 }
 
+# number of private_ips must be equal to num of names  
 variable "private_ip" {
     type    = list
     default = null
@@ -52,9 +55,12 @@ variable "private_key_to_provision" {
     sensitive = true
 }
 
+# if ec2 doesn't have public_ip provisioner will connect to your local machine
+# useful if you want to debug stack where some ec2 have public_ip and other doesn't
+#--- but you cannot use vars there so find another way)))
 # variable "ip_to_provision" {
 #     type = string
-#     default = 
+#     default = self.public_ip != "" ? self.public_ip:"127.0.0.1"
 # }
 
 variable "source_local" {
@@ -67,17 +73,13 @@ variable "dest_remote" {
     default = null
 }
 
-# variable "commands" {
-#     type = list
-#     default = ["echo 'Null'"]
-# }
-
 #-----Security-----
 variable "key_name" {
     type = string
     default = null
 }
 
+# variable is a list, to make possible assign multiple security groups to ec2
 variable "sec_group_ids" {
     type = list
     default = null
