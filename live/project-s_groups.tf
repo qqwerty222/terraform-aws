@@ -7,11 +7,13 @@ module "ssh_from_internet" {
 
     vpc_id     = module.dns_net.vpc_id
 
+    # inbound rules
     ingress_to_port   = 22
     ingress_from_port = 22
     ingress_protocol  = "tcp"
     ingress_cidr      = var.cidr_1
     
+    # outbound rules, from_port to_port are 0(all) by default
     egress_protocol   = "-1" 
     egress_cidr       = "0.0.0.0/0"
 }
@@ -30,7 +32,7 @@ module "ssh_local" {
     ingress_cidr      = module.dns_net.subnet_cidr
     
     egress_protocol   = "-1" 
-    egress_cidr       = module.dns_net.subnet_cidr
+    egress_cidr       = "0.0.0.0/0"
 }
 
 module "icmp" {

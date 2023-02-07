@@ -1,7 +1,6 @@
 resource "aws_vpc" "vpc" {
     cidr_block          = var.vpc_cidr
 
-
     tags = {
         Name    = var.vpc_name
         Created = "Terraform"
@@ -19,6 +18,7 @@ resource "aws_subnet" "subnet" {
     }
 }
 
+# there you can specify routes you need, into default vpc route_table
 resource "aws_route" "local" {
     route_table_id         = aws_vpc.vpc.main_route_table_id
     gateway_id             = aws_internet_gateway.int_gateway.id

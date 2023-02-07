@@ -18,14 +18,7 @@ variable "dns_stack_playbook" {
     default = "https://github.com/qqwerty222/dns-ngx-ansible.git"
 }
 
-data "cloudinit_config" "ansible_master" {
-    gzip = true
-    base64_encode = true
-    part {
-        content_type = "text/cloud_config"
-        content = template("../cloud-init_scripts/ansible-master.yaml")
-    }
-}
+
 
 
 
