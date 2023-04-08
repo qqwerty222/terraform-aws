@@ -1,6 +1,6 @@
 module "network" {
     source = "../../modules/network"
-    availability_zone   = var.AVAILABILITY_ZONE
+    availability_zone   = data.consul_keys.aws_config.var.availability_zone
 
     vpc_name            = data.consul_keys.network.var.vpc_name
     vpc_cidr            = data.consul_keys.network.var.vpc_cidr
@@ -16,6 +16,13 @@ module "consul_push" {
         { path = "${var.PROJECT_NAME}/network/subnet/id",   value = module.network.subnet_id },
         { path = "${var.PROJECT_NAME}/network/vpc/id",      value = module.network.vpc_id },
     ]
+}
+
+data "consul_keys" "aws_config" {
+    key {
+        name = "availability_zone"
+        path = "${var.PROJECT_NAME}/aws_config/availability_zone"
+    }
 }
 
 data "consul_keys" "network" {

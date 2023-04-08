@@ -1,6 +1,6 @@
 dns-deploy/.terraform
-dns-deploy/.terraform.tfstate
-dns-deploy/.terraform.tfstate.backup
 dns-deploy/.terraform.lock.hcl
 dns-deploy/secret.auto.tfvars
+dns-deploy/network/.terraform
+dns-deploy/network/.terraform.lock.hcl
 env_vars.sh

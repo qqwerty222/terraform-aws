@@ -3,16 +3,6 @@ variable "AVAILABILITY_ZONE" {
     default = null
 }
 
-variable "VPC_NAME" {
-    type    = string
-    default = null
-}
-
-variable "SUBNET_NAME" {
-    type    = string
-    default = null
-}
-
 variable "PROJECT_NAME" {
     type    = string
     default = null
