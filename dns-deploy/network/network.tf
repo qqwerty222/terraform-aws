@@ -18,18 +18,6 @@ module "consul_push" {
     ]
 }
 
-data "consul_keys" "aws_config" {
-    key {
-        name = "availability_zone"
-        path = "${var.PROJECT_NAME}/aws_config/availability_zone"
-    }
-
-    key {
-        name = "region"
-        path = "${var.PROJECT_NAME}/aws_config/region"
-    }
-}
-
 data "consul_keys" "network" {
     key { 
         name = "vpc_name" 
@@ -49,5 +37,17 @@ data "consul_keys" "network" {
     key {
         name = "subnet_cidr"
         path = "${var.PROJECT_NAME}/network/subnet/cidr"
+    }
+}
+
+data "consul_keys" "aws_config" {
+    key {
+        name = "availability_zone"
+        path = "${var.PROJECT_NAME}/aws_config/availability_zone"
+    }
+
+    key {
+        name = "region"
+        path = "${var.PROJECT_NAME}/aws_config/region"
     }
 }
