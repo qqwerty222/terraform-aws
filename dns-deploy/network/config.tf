@@ -13,9 +13,10 @@ terraform {
 }
 
 provider "aws" {
-  shared_config_files       = ["/home/bohdan/.aws/config"]
-  shared_credentials_files  = ["/home/bohdan/.aws/credentials"]
-  region = "eu-central-1"
+  region     = data.consul_keys.aws_config.var.region
+  access_key = var.AWS_ACCESS_KEY
+  secret_key = var.AWS_SECRET_KEY
+
 
   default_tags {
     tags = {

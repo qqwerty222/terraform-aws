@@ -1,6 +1,11 @@
-variable "AVAILABILITY_ZONE" {
-    type    = string 
-    default = null
+variable "AWS_ACCESS_KEY" {
+    type        = string
+    sensitive   = true
+}
+
+variable "AWS_SECRET_KEY" {
+    type        = string
+    sensitive   = true
 }
 
 variable "PROJECT_NAME" {

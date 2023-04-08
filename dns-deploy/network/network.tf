@@ -23,6 +23,11 @@ data "consul_keys" "aws_config" {
         name = "availability_zone"
         path = "${var.PROJECT_NAME}/aws_config/availability_zone"
     }
+
+    key {
+        name = "region"
+        path = "${var.PROJECT_NAME}/aws_config/region"
+    }
 }
 
 data "consul_keys" "network" {
