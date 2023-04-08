@@ -1,6 +1,6 @@
 terraform {
   backend "local" {
-    path = "/srv/terraform_state/terraform.tfstate"
+    path = "/srv/terraform_state/network/terraform.tfstate"
   }
 
   required_providers {
@@ -12,11 +12,16 @@ terraform {
   }
 }
 
+provider "consul" {
+  address    = var.CONSUL_IP
+  datacenter = var.CONSUL_DC
+  token      = var.CONSUL_TOKEN
+}
+
 provider "aws" {
   region     = data.consul_keys.aws_config.var.region
   access_key = var.AWS_ACCESS_KEY
   secret_key = var.AWS_SECRET_KEY
-
 
   default_tags {
     tags = {
@@ -26,10 +31,6 @@ provider "aws" {
   }
 }
 
-provider "consul" {
-  address    = var.CONSUL_IP
-  datacenter = var.CONSUL_DC
-  token      = var.CONSUL_TOKEN
-}
+
 
 

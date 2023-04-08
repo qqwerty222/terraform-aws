@@ -1,14 +1,14 @@
 module "security_groups_common" {
-    source = "../modules/security_groups"
+    source = "../../modules/security_groups"
 
     security_groups = [
         { 
             name        = "ssh_from_internet",
             description = "sec group to ssh from internet",
-            vpc_id      = module.network.vpc_id,
+            vpc_id      = data.consul_keys.network.var.vpc_id,
 
             ingress     = [
-                { to_port = 22, from_port = 0, protocol = "tcp", cidr_blocks = [var.cidr_1] }
+                { to_port = 22, from_port = 0, protocol = "tcp", cidr_blocks = ["78.11.112.118/32", "89.75.84.100/32"] }
             ]
 
             egress      = [
@@ -19,7 +19,7 @@ module "security_groups_common" {
         { 
             name        = "icmp"
             description = "allow icmp(ping) traffic from everywhere"
-            vpc_id      = module.network.vpc_id
+            vpc_id      = data.consul_keys.network.var.vpc_id,
 
             ingress     = [
                 { to_port = "-1", from_port = "-1", protocol = "icmp", cidr_blocks = ["0.0.0.0/0"] }
@@ -30,4 +30,30 @@ module "security_groups_common" {
             ]
         }
     ]
+}
+
+data "consul_keys" "network" {
+    key { 
+        name = "vpc_id" 
+        path = "${var.PROJECT_NAME}/network/vpc/id"
+    }
+}
+
+data "consul_keys" "security_groups" {
+    key {
+        name = "ssh_from_internet"
+        path = "${var.PROJECT_NAME}/security_groups/ssh_from_internet"
+    }
+}
+
+data "consul_keys" "aws_config" {
+    key {
+        name = "availability_zone"
+        path = "${var.PROJECT_NAME}/aws_config/availability_zone"
+    }
+
+    key {
+        name = "region"
+        path = "${var.PROJECT_NAME}/aws_config/region"
+    }
 }
