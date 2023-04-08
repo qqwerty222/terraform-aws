@@ -1,27 +1,31 @@
 
 resource "aws_security_group" "sec_group" {
-    name        = var.name
-    description = var.description
+    count = length(var.security_groups)
+
+    name        = var.security_groups[count.index]["name"]
+    description = var.security_groups[count.index]["description"]
     
-    vpc_id = var.vpc_id
+    vpc_id      = var.security_groups[count.index]["vpc_id"]
 
-    ingress {
-        to_port     = var.ingress_to_port
-        from_port   = var.ingress_from_port
-        protocol    = var.ingress_protocol
-        cidr_blocks = [var.ingress_cidr]
+    dynamic "ingress" {
+        for_each = var.security_groups[count.index]["ingress"]
+        content {
+            to_port     = ingress.value["to_port"]
+            from_port   = ingress.value["from_port"]
+            protocol    = ingress.value["protocol"]
+            cidr_blocks = ingress.value["cidr_blocks"]
+        }
     }
 
-    egress {
-        to_port     = var.egress_to_port
-        from_port   = var.egress_from_port
-        protocol    = var.egress_protocol
-        cidr_blocks = [var.egress_cidr]
-    }
+    dynamic "egress" {
+        for_each = var.security_groups[count.index]["egress"]
 
-    tags = {
-        Name    = var.name
-        Created = "Terraform"
+        content {
+            to_port     = egress.value["to_port"]
+            from_port   = egress.value["from_port"]
+            protocol    = egress.value["protocol"]
+            cidr_blocks = egress.value["cidr_blocks"]
+        }
     }
 }
 

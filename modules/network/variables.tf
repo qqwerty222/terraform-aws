@@ -23,6 +23,7 @@ variable "subnet_name" {
 variable "subnet_cidr" {
     type    = string
     default = null
+    description = "CIDR of the subnet, example: "
 }
 
 

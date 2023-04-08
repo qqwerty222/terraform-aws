@@ -9,13 +9,13 @@ variable "public_ssh_test" {
 }
 
 variable "cidr_1" {
-    type = string
+    type      = string
     sensitive = true
 }
 
-variable "dns_stack_playbook" {
-    type = string
-    default = "https://github.com/qqwerty222/dns-ngx-ansible.git"
+variable "consul_token" {
+    type      = string
+    sensitive = true
 }
 
 

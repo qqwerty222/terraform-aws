@@ -1,4 +1,6 @@
-live/.terraform
-live/.terraform.tfstate
-live/.terraform.tfstate.backup
-live/secret.auto.tfvars
+dns-deploy/.terraform
+dns-deploy/.terraform.tfstate
+dns-deploy/.terraform.tfstate.backup
+dns-deploy/.terraform.lock.hcl
+dns-deploy/secret.auto.tfvars
+env_vars.sh
