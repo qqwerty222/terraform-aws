@@ -1,11 +1,23 @@
 variable "AWS_ACCESS_KEY" {
     type        = string
+    default     = null
     sensitive   = true
-}
+} 
 
 variable "AWS_SECRET_KEY" {
     type        = string
+    default     = null
     sensitive   = true
+}
+
+variable "AWS_AVAILABILITY_ZONE" {
+    type        = string
+    default     = null
+}
+
+variable "AWS_REGION" {
+    type        = string
+    default     = null
 }
 
 variable "PROJECT_NAME" {

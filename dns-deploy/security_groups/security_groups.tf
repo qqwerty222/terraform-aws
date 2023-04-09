@@ -45,15 +45,3 @@ data "consul_keys" "security_groups" {
         path = "${var.PROJECT_NAME}/security_groups/ssh_from_internet"
     }
 }
-
-data "consul_keys" "aws_config" {
-    key {
-        name = "availability_zone"
-        path = "${var.PROJECT_NAME}/aws_config/availability_zone"
-    }
-
-    key {
-        name = "region"
-        path = "${var.PROJECT_NAME}/aws_config/region"
-    }
-}

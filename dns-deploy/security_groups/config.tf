@@ -19,7 +19,7 @@ provider "consul" {
 }
 
 provider "aws" {
-  region     = data.consul_keys.aws_config.var.region
+  region     = var.AWS_REGION
   access_key = var.AWS_ACCESS_KEY
   secret_key = var.AWS_SECRET_KEY
 
