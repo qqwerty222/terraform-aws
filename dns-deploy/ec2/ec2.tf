@@ -55,6 +55,6 @@ module "consul_push" {
 
     push_lists = [
         { path = "dns-deploy/ec2/ids", value = module.ec2.ids_json},
-        { path = "dns-deploy/ec2/ids", value = module.ec2.private_ips_json},
+        { path = "dns-deploy/ec2/private_ips", value = module.ec2.private_ips_json},
     ]
 }
