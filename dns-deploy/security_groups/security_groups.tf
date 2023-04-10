@@ -1,34 +1,11 @@
-module "security_groups_common" {
+module "security_groups" {
     source = "../../modules/security_groups"
 
+    vpc_id = data.consul_keys.network.var.vpc_id
+
     security_groups = [
-        { 
-            name        = "ssh_from_internet",
-            description = "sec group to ssh from internet",
-            vpc_id      = data.consul_keys.network.var.vpc_id,
-
-            ingress     = [
-                { to_port = 22, from_port = 0, protocol = "tcp", cidr_blocks = ["78.11.112.118/32", "89.75.84.100/32"] }
-            ]
-
-            egress      = [
-                { to_port = 0, from_port = 0, protocol = "-1", cidr_blocks = ["0.0.0.0/0"] }
-            ]
-        },
-
-        { 
-            name        = "icmp"
-            description = "allow icmp(ping) traffic from everywhere"
-            vpc_id      = data.consul_keys.network.var.vpc_id,
-
-            ingress     = [
-                { to_port = "-1", from_port = "-1", protocol = "icmp", cidr_blocks = ["0.0.0.0/0"] }
-            ]
-
-            egress      = [
-                { to_port = "-1", from_port = "-1", protocol = "icmp", cidr_blocks = ["0.0.0.0/0"] }
-            ]
-        }
+        jsondecode(data.consul_keys.security_groups.var.ssh_from_internet),
+        jsondecode(data.consul_keys.security_groups.var.ping)
     ]
 }
 
@@ -42,6 +19,19 @@ data "consul_keys" "network" {
 data "consul_keys" "security_groups" {
     key {
         name = "ssh_from_internet"
-        path = "${var.PROJECT_NAME}/security_groups/ssh_from_internet"
+        path = "${var.PROJECT_NAME}/security_groups/ssh_from_internet/json"
     }
+    
+    key {
+        name = "ping"
+        path = "${var.PROJECT_NAME}/security_groups/ping/json"
+    }
+}
+
+module "consul_push" {
+    source = "../../modules/consul_kv"
+
+    push_lists = [
+        { path = "dns-deploy/security_groups/ids", value = module.security_groups.ids_json},
+    ]
 }

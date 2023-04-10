@@ -1,9 +1,11 @@
-
+variable "vpc_id" {
+    type    = string
+    default = null
+}
 variable "security_groups" {
     type = list(object({
         name            = string
         description     = string
-        vpc_id          = string
 
         ingress         = list(object({
             to_port     = number
@@ -21,3 +23,5 @@ variable "security_groups" {
     }))
     description = "List with parameters for each security group"
 }
+
+

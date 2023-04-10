@@ -5,7 +5,7 @@ resource "aws_security_group" "sec_group" {
     name        = var.security_groups[count.index]["name"]
     description = var.security_groups[count.index]["description"]
     
-    vpc_id      = var.security_groups[count.index]["vpc_id"]
+    vpc_id      = var.vpc_id
 
     dynamic "ingress" {
         for_each = var.security_groups[count.index]["ingress"]

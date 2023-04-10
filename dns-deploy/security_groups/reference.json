@@ -1,0 +1,27 @@
+{
+    "name":"ssh_from_internet",
+    "description":"sec group to ssh from internet",
+    "vpc_id":"data.consul_keys.network.var.vpc_id",
+    
+    "ingress":[
+      { "to_port":22, "from_port":0, "protocol":"tcp", "cidr_blocks":["1.1.1.1/32"]}
+    ],
+    
+    "egress":[
+      {"to_port":0, "from_port":0, "protocol":"-1", "cidr_blocks":["0.0.0.0/0"]}
+    ]
+  }
+
+  {
+    "name":"icmp",
+    "description":"allow icmp(ping) traffic from everywhere",
+    "vpc_id":"data.consul_keys.network.var.vpc_id",
+    
+    "ingress":[
+      { "to_port":-1, "from_port":-1, "protocol":"icmp", "cidr_blocks":["0.0.0.0/0"]}
+    ],
+    
+    "egress":[
+      {"to_port":0, "from_port":0, "protocol":"-1", "cidr_blocks":["0.0.0.0/0"]}
+    ]
+  }
