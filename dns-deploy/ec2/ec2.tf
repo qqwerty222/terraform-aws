@@ -1,7 +1,7 @@
 module "ec2" {
     source = "../../modules/ec2"
 
-    instances           = ["dns", "webserver", "user"]
+    number              = data.consul_keys.ec2.var.number
     instance_type       = data.consul_keys.ec2.var.instance_type
     ami                 = data.consul_keys.ec2.var.ami
 
@@ -13,6 +13,11 @@ module "ec2" {
 }
 
 data "consul_keys" "ec2" {
+    key {
+        name = "number"
+        path = "${var.PROJECT_NAME}/ec2/number"
+    }
+
     key { 
         name = "ami" 
         path = "${var.PROJECT_NAME}/ec2/ami"
@@ -50,6 +55,6 @@ module "consul_push" {
 
     push_lists = [
         { path = "dns-deploy/ec2/ids", value = module.ec2.ids_json},
-        { path = "dns-deploy/ec2/ids", value = module.ec2.ips_json},
+        { path = "dns-deploy/ec2/ids", value = module.ec2.private_ips_json},
     ]
 }

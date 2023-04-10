@@ -1,56 +1,45 @@
-
-variable "availability_zone" {
-    type    = string 
-    default = null
+variable "number" {
+    type        = number
+    default     = null
+    description = "number of instances to deploy"
 }
 
-variable "instances" {
-    type = list
-    default = null
-    description = "list of names for ec2"
-}
-
-#-----Network-----
-variable "subnet_id" {
-    type    = string
-    default = null
-}
-
-variable "associate_public_ip_address" {
-    type    = bool
-    default = false
-}
-
-variable "enable_dns_arec" {
-    type    = bool
-    default = false
-}
-
-#-----Configuration-----
 variable "ami" {
-    type    = string
-    default = null
+    type        = string
+    default     = null
 }
 
 variable "instance_type" {
-    type    = string
-    default = null
+    type        = string
+    default     = null
+    description = "type of ec2 instance, t2.micro at example"
 }
 
-variable "user_data" {
-    type    = string
-    default = null
+variable "availability_zone" {
+    type        = string 
+    default     = null
 }
 
-#-----Security-----
+variable "subnet_id" {
+    type        = string
+    default     = null
+}
+
 variable "key_name" {
-    type = string
-    default = null
+    type        = string
+    default     = null
+    description = "name of ssh key to assign"
 }
 
 variable "sec_group_ids" {
-    type = list
-    default = null
+    type        = list
+    default     = null
     description = "list of sec groups assigned to ec2"
+}
+
+variable "user_data" {
+    type        = string
+    default     = null
+    description = "cloud init script to while initialization"
 }
 
