@@ -8,4 +8,10 @@ dns-deploy/network/.terraform.lock.hcl
 dns-deploy/security_groups/.terraform
 dns-deploy/security_groups/.terraform.lock.hcl
 
+dns-deploy/ssh_keys/.terraform
+dns-deploy/ssh_keys/.terraform.lock.hcl
+
+dns-deploy/ec2/.terraform
+dns-deploy/ec2/.terraform.lock.hcl
+
 env_vars.sh
