@@ -1,4 +1,3 @@
-
 module "ssh_key" {
     source  = "../../modules/aws_key_pair"
     
