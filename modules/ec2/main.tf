@@ -1,4 +1,4 @@
-resource "aws_instance" "ec2" {
+resource "aws_instance" "common" {
     # count is invoke resources multiple times, it depends from number of names in list
     count = length(var.instances)
 
