@@ -1,9 +1,14 @@
-variable "key_name" {
-    type    = string
-    default = null
+variable "key" {
+    type        = map(string)
+    default     = null
+    sensitive   = true
 }
 
-variable "public_key" {
-    type    = string
-    default = null
-}
+# variable "key_list" {
+#     type = list(object({
+#         key_name = string
+#         pub_key  = string
+#     }))
+#     default     = null
+#     sensitive   = true
+# }
