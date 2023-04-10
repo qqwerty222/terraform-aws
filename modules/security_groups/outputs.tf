@@ -6,7 +6,7 @@ output "ids" {
 }
 
 output "ids_json" {
-    value = "[ null%{ for sec_group in aws_security_group.sec_group ~}, \"${sec_group.id}\" %{ endfor ~}]"
+    value = jsonencode([ for sec_group in aws_security_group.sec_group: sec_group.id ])
 }
 
 output "ids_string" {
