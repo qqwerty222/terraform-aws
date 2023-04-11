@@ -12,13 +12,13 @@ variable "AWS_SECRET_KEY" {
 
 variable "AWS_AVAILABILITY_ZONE" {
     type        = string
-    sensitive   = true
+    default     = null
     description = "AWS availability zone to locate resources in"
 }
 
 variable "AWS_REGION" {
     type        = string
-    sensitive   = true
+    default     = null
     description = "AWS region to locate resources in"
 }
 

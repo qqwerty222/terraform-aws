@@ -1,14 +1,13 @@
 
 resource "aws_security_group" "sec_group" {
-    count = length(var.security_groups)
 
-    name        = var.security_groups[count.index]["name"]
-    description = var.security_groups[count.index]["description"]
+    name                = var.parameters["name"]
+    description         = var.parameters["description"]
     
-    vpc_id      = var.vpc_id
+    vpc_id              = var.vpc_id
 
     dynamic "ingress" {
-        for_each = var.security_groups[count.index]["ingress"]
+        for_each = var.parameters["ingress"]
         content {
             to_port     = ingress.value["to_port"]
             from_port   = ingress.value["from_port"]
@@ -18,7 +17,7 @@ resource "aws_security_group" "sec_group" {
     }
 
     dynamic "egress" {
-        for_each = var.security_groups[count.index]["egress"]
+        for_each = var.parameters["egress"]
 
         content {
             to_port     = egress.value["to_port"]
@@ -28,4 +27,3 @@ resource "aws_security_group" "sec_group" {
         }
     }
 }
-
