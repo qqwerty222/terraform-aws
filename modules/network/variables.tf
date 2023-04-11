@@ -1,29 +1,31 @@
 variable "availability_zone" {
-    type    = string
-    default = null
+    type        = string
+    default     = null
+    description = "AWS availability zone to locate vpc in"
 }
 
-#-----VPC-----
 variable "vpc_name" {
-    type    = string
-    default = null
+    type        = string
+    default     = null
+    description = "Name of the vpc"
 }
 
 variable "vpc_cidr" {
-    type    = string
-    default = null
+    type        = string
+    default     = null
+    description = "CIDR of the vpc, example: 10.0.0.0/16"
 }
 
-#-----Subnet-----
 variable "subnet_name" {
-    type    = string 
-    default = null
+    type        = string 
+    default     = null
+    description = "Name of the subnet"
 }
 
 variable "subnet_cidr" {
     type    = string
     default = null
-    description = "CIDR of the subnet, example: "
+    description = "CIDR of the subnet, example: 10.0.1.0/24"
 }
 
 
