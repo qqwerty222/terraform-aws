@@ -44,13 +44,13 @@ module "consul_push" {
     source = "../../modules/consul_kv"
 
     push_lists = [
-        { path = "dns-deploy/ec2/dns/ids", value = module.dns.ids_json},
-        { path = "dns-deploy/ec2/dns/private_ips", value = module.dns.private_ips_json},
+        { path = "dns-deploy/ec2/dns/ids",                  value = module.dns.ids_json},
+        { path = "dns-deploy/ec2/dns/private_ips",          value = module.dns.private_ips_json},
 
-        { path = "dns-deploy/ec2/webservers/ids", value = module.webservers.ids_json},
-        { path = "dns-deploy/ec2/webservers/private_ips", value = module.webservers.private_ips_json},
+        { path = "dns-deploy/ec2/webservers/ids",           value = module.webservers.ids_json},
+        { path = "dns-deploy/ec2/webservers/private_ips",   value = module.webservers.private_ips_json},
 
-        { path = "dns-deploy/ec2/users/ids", value = module.users.ids_json},
-        { path = "dns-deploy/ec2/users/private_ips", value = module.users.private_ips_json},
+        { path = "dns-deploy/ec2/users/ids",                value = module.users.ids_json},
+        { path = "dns-deploy/ec2/users/private_ips",        value = module.users.private_ips_json},
     ]
 }

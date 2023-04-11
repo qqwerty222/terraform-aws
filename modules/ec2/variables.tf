@@ -46,3 +46,9 @@ variable "user_data" {
     description = "Cloud-init script to run while initialization"
 }
 
+variable "instance_name" {
+    type        = string
+    default     = null
+    description = "Name for instance, count index will be added to it"
+}
+

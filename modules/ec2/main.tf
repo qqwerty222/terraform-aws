@@ -11,7 +11,12 @@ resource "aws_instance" "common" {
     vpc_security_group_ids      = var.sec_group_ids
     
     user_data                   = var.user_data
+
+    tags = {
+        Name = "${var.instance_name}-${count.index}"
+    }
 }
+
 
 
 
