@@ -1,6 +1,6 @@
 [dns_servers]  
 %{ for ip in dns_ips ~}
-"\n${ip}"
+${ip}
 %{endfor ~}
 
 [webservers]
