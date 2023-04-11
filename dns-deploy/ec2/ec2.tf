@@ -30,7 +30,7 @@ module "webservers" {
     key_name            = data.consul_keys.ssh_key.var.id
     sec_group_ids       = [
         data.consul_keys.security_groups.var.ssh_from_internet_id,
-        data.consul_keys.security_groups.var.ping
+        data.consul_keys.security_groups.var.ping_id
     ]
 
     instance_name       = "webserver"
