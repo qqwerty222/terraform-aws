@@ -60,6 +60,10 @@ data "consul_keys" "network" {
         name = "subnet_id"
         path = "${var.PROJECT_NAME}/network/subnet/id"
     }
+    key {
+        name = "subnet_cidr"
+        path = "${var.PROJECT_NAME}/network/subnet/cidr"
+    }
 }
 
 data "consul_keys" "ssh_key" {
