@@ -28,6 +28,12 @@ variable "subnet_id" {
     description = "ID of subnet where instance will be located"
 }
 
+variable "public_ip" {
+    type        = string
+    default     = false
+    description = "Associate public ip to instance or not (true/false)"
+}
+
 variable "key_name" {
     type        = string
     default     = null

@@ -11,6 +11,10 @@ data "consul_keys" "dns" {
         name = "ami" 
         path = "${var.PROJECT_NAME}/ec2/dns/ami"
     }
+    key { 
+        name = "public_ip" 
+        path = "${var.PROJECT_NAME}/ec2/dns/public_ip"
+    }
 }
 
 data "consul_keys" "webservers" {
@@ -26,6 +30,10 @@ data "consul_keys" "webservers" {
         name = "ami" 
         path = "${var.PROJECT_NAME}/ec2/webservers/ami"
     }
+    key { 
+        name = "public_ip" 
+        path = "${var.PROJECT_NAME}/ec2/webservers/public_ip"
+    }
 }
 
 data "consul_keys" "users" {
@@ -40,6 +48,10 @@ data "consul_keys" "users" {
     key { 
         name = "ami" 
         path = "${var.PROJECT_NAME}/ec2/users/ami"
+    }
+    key { 
+        name = "public_ip" 
+        path = "${var.PROJECT_NAME}/ec2/users/public_ip"
     }
 }
 
