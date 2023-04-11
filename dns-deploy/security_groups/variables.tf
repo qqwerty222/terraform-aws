@@ -1,21 +1,25 @@
 variable "AWS_ACCESS_KEY" {
     type        = string
     sensitive   = true
+    description = "AWS access key of account to use for deploy"
 }
 
 variable "AWS_SECRET_KEY" {
     type        = string
     sensitive   = true
+    description = "AWS secret key of account to use for deploy"
 }
 
 variable "AWS_AVAILABILITY_ZONE" {
     type        = string
     sensitive   = true
+    description = "AWS availability zone to locate resources in"
 }
 
 variable "AWS_REGION" {
     type        = string
     sensitive   = true
+    description = "AWS region to locate resources in"
 }
 
 variable "PROJECT_NAME" {
