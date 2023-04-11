@@ -59,8 +59,12 @@ data "consul_keys" "ssh_key" {
 
 data "consul_keys" "security_groups" {
     key {
-        name = "ids"
-        path = "${var.PROJECT_NAME}/security_groups/ids"
+        name = "ssh_from_internet_id"
+        path = "${var.PROJECT_NAME}/security_groups/ssh_from_internet/id"
+    }
+    key {
+        name = "ping_id"
+        path = "${var.PROJECT_NAME}/security_groups/ping/id"
     }
 }
 

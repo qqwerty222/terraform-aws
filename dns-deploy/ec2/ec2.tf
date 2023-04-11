@@ -9,7 +9,10 @@ module "dns" {
     subnet_id           = data.consul_keys.network.var.subnet_id
 
     key_name            = data.consul_keys.ssh_key.var.id
-    sec_group_ids       = jsondecode(data.consul_keys.security_groups.var.ids)
+    sec_group_ids       = [
+        data.consul_keys.security_groups.var.ssh_from_internet_id,
+        data.consul_keys.security_groups.var.ping
+    ]
 
     instance_name       = "dns"
 }
@@ -25,7 +28,10 @@ module "webservers" {
     subnet_id           = data.consul_keys.network.var.subnet_id
 
     key_name            = data.consul_keys.ssh_key.var.id
-    sec_group_ids       = jsondecode(data.consul_keys.security_groups.var.ids)
+    sec_group_ids       = [
+        data.consul_keys.security_groups.var.ssh_from_internet_id,
+        data.consul_keys.security_groups.var.ping
+    ]
 
     instance_name       = "webserver"
 }
@@ -41,7 +47,10 @@ module "users" {
     subnet_id           = data.consul_keys.network.var.subnet_id
 
     key_name            = data.consul_keys.ssh_key.var.id
-    sec_group_ids       = jsondecode(data.consul_keys.security_groups.var.ids)
+    sec_group_ids       = [
+        data.consul_keys.security_groups.var.ssh_from_internet_id,
+        data.consul_keys.security_groups.var.ping
+    ]
 
     instance_name       = "user"
 }
