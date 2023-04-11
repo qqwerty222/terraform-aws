@@ -64,14 +64,14 @@ module "consul_push" {
     push_lists = [
         { path = "dns-deploy/ec2/dns/ids",                  value = module.dns.ids_json},
         { path = "dns-deploy/ec2/dns/private_ips",          value = module.dns.private_ips_json},
-        { path = "dns-deploy/ec2/webservers/public_ips",    value = jsondecode(module.dns.public_ips)},
+        { path = "dns-deploy/ec2/webservers/public_ips",    value = jsonencode(module.dns.public_ips)},
 
         { path = "dns-deploy/ec2/webservers/ids",           value = module.webservers.ids_json},
         { path = "dns-deploy/ec2/webservers/private_ips",   value = module.webservers.private_ips_json},
-        { path = "dns-deploy/ec2/webservers/public_ips",    value = jsondecode(module.webservers.public_ips)},
+        { path = "dns-deploy/ec2/webservers/public_ips",    value = jsonencode(module.webservers.public_ips)},
 
-        { path = "dns-deploy/ec2/users/ids",                value = jsondecode(module.users.ids)},
-        { path = "dns-deploy/ec2/users/private_ips",        value = jsondecode(module.users.private_ips)},
-        { path = "dns-deploy/ec2/webservers/public_ips",    value = jsondecode(module.users.public_ips)},
+        { path = "dns-deploy/ec2/users/ids",                value = jsonencode(module.users.ids)},
+        { path = "dns-deploy/ec2/users/private_ips",        value = jsonencode(module.users.private_ips)},
+        { path = "dns-deploy/ec2/webservers/public_ips",    value = jsonencode(module.users.public_ips)},
     ]
 }
