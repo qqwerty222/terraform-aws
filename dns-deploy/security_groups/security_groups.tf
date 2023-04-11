@@ -34,8 +34,8 @@ data "consul_keys" "security_groups" {
 module "consul_push" {
     source = "../../modules/consul_kv"
 
-    push_lists = [
-        { path = "dns-deploy/security_groups/ssh_from_internet/id", value = module.ssh_from_internet.id},
-        { path = "dns-deploy/security_groups/ping/id",              value = module.ping.id},
+    push_lists  = [
+        { path  = "dns-deploy/security_groups/ssh_from_internet/id", value = module.ssh_from_internet.id},
+        { path  = "dns-deploy/security_groups/ping/id",              value = module.ping.id},
     ]
 }
