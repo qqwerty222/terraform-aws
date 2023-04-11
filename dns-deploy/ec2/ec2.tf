@@ -79,12 +79,12 @@ module "consul_push" {
         
         { path = "dns-deploy/ec2/hosts",                    value = templatefile("../templates/hosts.tpl",{
                                                                         dns_ips         = module.dns.public_ips,
-                                                                        webserver_ips   = module.webserver.public_ips,
-                                                                        user_ips        = module.user.public_ips                      
+                                                                        webserver_ips   = module.webservers.public_ips,
+                                                                        user_ips        = module.users.public_ips                      
                                                                     })},
         { path = "dns-deploy/ec2/gvars_all",                value = templatefile("../templates/gvars_all.tpl",{
                                                                         dns_ips         = module.dns.public_ips,
-                                                                        webserver_ips   = module.webserver.public_ips,
+                                                                        webserver_ips   = module.webservers.public_ips,
                                                                         cidr_block      = data.consul_keys.network.var.subnet_cidr                   
                                                                     })},
     ]
