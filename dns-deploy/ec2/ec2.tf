@@ -1,43 +1,49 @@
 module "dns" {
     source = "../../modules/ec2"
 
-    number              = data.consul_keys.ec2.var.number
-    instance_type       = data.consul_keys.ec2.var.instance_type
-    ami                 = data.consul_keys.ec2.var.ami
+    number              = data.consul_keys.dns.var.number
+    instance_type       = data.consul_keys.dns.var.instance_type
+    ami                 = data.consul_keys.dns.var.ami
 
     availability_zone   = var.AWS_AVAILABILITY_ZONE
     subnet_id           = data.consul_keys.network.var.subnet_id
 
     key_name            = data.consul_keys.ssh_key.var.id
     sec_group_ids       = jsondecode(data.consul_keys.security_groups.var.ids)
+
+    instance_name       = "dns"
 }
 
 module "webservers" {
     source = "../../modules/ec2"
 
-    number              = data.consul_keys.ec2.var.number
-    instance_type       = data.consul_keys.ec2.var.instance_type
-    ami                 = data.consul_keys.ec2.var.ami
+    number              = data.consul_keys.webservers.var.number
+    instance_type       = data.consul_keys.webservers.var.instance_type
+    ami                 = data.consul_keys.webservers.var.ami
 
     availability_zone   = var.AWS_AVAILABILITY_ZONE
     subnet_id           = data.consul_keys.network.var.subnet_id
 
     key_name            = data.consul_keys.ssh_key.var.id
     sec_group_ids       = jsondecode(data.consul_keys.security_groups.var.ids)
+
+    instance_name       = "webserver"
 }
 
-module "user" {
+module "users" {
     source = "../../modules/ec2"
 
-    number              = data.consul_keys.ec2.var.number
-    instance_type       = data.consul_keys.ec2.var.instance_type
-    ami                 = data.consul_keys.ec2.var.ami
+    number              = data.consul_keys.users.var.number
+    instance_type       = data.consul_keys.users.var.instance_type
+    ami                 = data.consul_keys.users.var.ami
 
     availability_zone   = var.AWS_AVAILABILITY_ZONE
     subnet_id           = data.consul_keys.network.var.subnet_id
 
     key_name            = data.consul_keys.ssh_key.var.id
     sec_group_ids       = jsondecode(data.consul_keys.security_groups.var.ids)
+
+    instance_name       = "user"
 }
 
 module "consul_push" {
