@@ -3,5 +3,5 @@ variable "push_lists" {
         path    = string
         value   = string
     }))
-    description = "List with path/value to push in consul KV"
+    description = "List that contain pathes for values to push in consul KV"
 }
