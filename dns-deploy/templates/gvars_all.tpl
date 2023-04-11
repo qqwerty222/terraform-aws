@@ -1,3 +1,3 @@
-"dns_ips: %{ for ip in dns_ips ~} ${ip} %{endfor ~}      " 
-"\nwebserver_ips: %{ for ip in dns_ips ~} ${ip} %{endfor ~}" 
-"\ncidr_block: ${cidr_block}"
+dns_ips: %{ for ip in dns_ips ~} ${ip} %{endfor ~}      
+webserver_ips: %{ for ip in dns_ips ~} ${ip} %{endfor ~}
+cidr_block: ${cidr_block}
