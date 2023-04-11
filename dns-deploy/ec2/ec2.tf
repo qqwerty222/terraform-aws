@@ -31,7 +31,7 @@ module "webservers" {
     public_ip           = data.consul_keys.webservers.var.public_ip
 
     key_name            = data.consul_keys.ssh_key.var.id
-    
+
     sec_group_ids       = [
         data.consul_keys.security_groups.var.ssh_from_internet_id,
         data.consul_keys.security_groups.var.ping_id
@@ -67,7 +67,7 @@ module "consul_push" {
     push_lists = [
         { path = "dns-deploy/ec2/dns/ids",                  value = jsonencode(module.dns.ids)},
         { path = "dns-deploy/ec2/dns/private_ips",          value = jsonencode(module.dns.private_ips)},
-        { path = "dns-deploy/ec2/webservers/public_ips",    value = jsonencode(module.dns.public_ips)},
+        { path = "dns-deploy/ec2/dns/public_ips",    value = jsonencode(module.dns.public_ips)},
 
         { path = "dns-deploy/ec2/webservers/ids",           value = jsonencode(module.webservers.ids)},
         { path = "dns-deploy/ec2/webservers/private_ips",   value = jsonencode(module.webservers.private_ips)},
@@ -75,6 +75,6 @@ module "consul_push" {
 
         { path = "dns-deploy/ec2/users/ids",                value = jsonencode(module.users.ids)},
         { path = "dns-deploy/ec2/users/private_ips",        value = jsonencode(module.users.private_ips)},
-        { path = "dns-deploy/ec2/webservers/public_ips",    value = jsonencode(module.users.public_ips)},
+        { path = "dns-deploy/ec2/users/public_ips",    value = jsonencode(module.users.public_ips)},
     ]
 }
