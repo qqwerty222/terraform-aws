@@ -83,8 +83,8 @@ module "consul_push" {
                                                                         user_ips        = module.users.public_ips                      
                                                                     })},
         { path = "dns-deploy/ec2/gvars_all",                value = templatefile("../templates/gvars_all.tpl",{
-                                                                        dns_ips         = module.dns.public_ips,
-                                                                        webserver_ips   = module.webservers.public_ips,
+                                                                        dns_ips         = module.dns.private_ips,
+                                                                        webserver_ips   = module.webservers.private_ips,
                                                                         cidr_block      = data.consul_keys.network.var.subnet_cidr                   
                                                                     })},
     ]
