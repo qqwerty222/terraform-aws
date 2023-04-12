@@ -79,6 +79,10 @@ data "consul_keys" "security_groups" {
         path = "${var.PROJECT_NAME}/security_groups/ssh_from_internet/id"
     }
     key {
+        name = "dns_local_id"
+        path = "${var.PROJECT_NAME}/security_groups/dns_local/id"
+    }
+    key {
         name = "ping_id"
         path = "${var.PROJECT_NAME}/security_groups/ping/id"
     }

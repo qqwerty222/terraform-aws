@@ -13,6 +13,7 @@ module "dns" {
 
     sec_group_ids       = [
         data.consul_keys.security_groups.var.ssh_from_internet_id,
+        data.consul_keys.security_groups.var.dns_local_id,
         data.consul_keys.security_groups.var.ping_id
     ]
 
@@ -34,6 +35,7 @@ module "webservers" {
 
     sec_group_ids       = [
         data.consul_keys.security_groups.var.ssh_from_internet_id,
+        data.consul_keys.security_groups.var.dns_local_id,
         data.consul_keys.security_groups.var.ping_id
     ]
 
@@ -55,6 +57,7 @@ module "users" {
 
     sec_group_ids       = [
         data.consul_keys.security_groups.var.ssh_from_internet_id,
+        data.consul_keys.security_groups.var.dns_local_id,
         data.consul_keys.security_groups.var.ping_id
     ]
 
