@@ -51,5 +51,5 @@ variable "PUBLIC_KEY" {
     type        = string
     default     = null
     sensitive   = true
-    description = "Public key for key"
+    description = "Public key to assign"
 }
