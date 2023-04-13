@@ -3,15 +3,12 @@ module "ssh_key" {
     
     key = {
         key_name    = "common", 
-        pub_key     = data.consul_keys.ssh_key.var.common
+        pub_key     = data.aws_secretsmanager_secret.var.pub_key
     }   
 }
 
-data "consul_keys" "ssh_key" {
-    key { 
-        name = "common" 
-        path = "${var.PROJECT_NAME}/ssh_keys/common/pub_key"
-    }
+data "aws_secretsmanager_secret" "pub_key" {
+    name = "ssh_dns_pub"
 }
 
 module "consul_push" {
