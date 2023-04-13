@@ -3,7 +3,7 @@ module "ssh_key" {
     
     key = {
         key_name    = "common", 
-        pub_key     = data.aws_secretsmanager_secret.var.pub_key
+        pub_key     = data.aws_secretsmanager_secret.pub_key
     }   
 }
 
