@@ -46,3 +46,10 @@ variable "CONSUL_TOKEN" {
     sensitive   = true
     description = "Access token to consul"
 }
+
+variable "PUBLIC_KEY" {
+    type        = string
+    default     = null
+    sensitive   = true
+    description = "Public key for key"
+}
