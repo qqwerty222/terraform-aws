@@ -8,5 +8,5 @@ module "database" {
     instance_class              = "db.t3.micro"
     
     secrets_manager             = true
-    admin_username              = "admin"
+    username              = "admin"
 }
