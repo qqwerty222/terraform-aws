@@ -52,7 +52,7 @@ variable "parameter_group_name" {
     description = "Name of the DB parameter group to associate"
 }
 
-variable "publicity_accessible" {
+variable "publicly_accessible" {
     type        = string
     default     = false
     description = "If true DB will get public ip"
