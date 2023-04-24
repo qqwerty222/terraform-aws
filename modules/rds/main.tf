@@ -11,6 +11,6 @@ resource "aws_db_instance" "common" {
 
     parameter_group_name        = var.parameter_group_name
 
-    publicly_accessible         = var.publicly_accessible
+    publicity_accessible        = var.publicity_accessible
     vpc_security_group_ids      = var.security_groups
 }
