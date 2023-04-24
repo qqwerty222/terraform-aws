@@ -14,4 +14,7 @@ dns-deploy/ssh_keys/.terraform.lock.hcl
 dns-deploy/ec2/.terraform
 dns-deploy/ec2/.terraform.lock.hcl
 
+dns-deploy/rds/.terraform/
+dns-deploy/rds/.terraform.lock.hcl
+
 env_vars.sh
