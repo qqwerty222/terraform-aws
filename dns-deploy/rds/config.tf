@@ -1,6 +1,6 @@
 terraform {
   backend "local" {
-    path      = "/srv/terraform_state/network/terraform.tfstate"
+    path      = "/srv/terraform_state/rds/terraform.tfstate"
   }
 
   required_providers {
@@ -8,15 +8,15 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 4.0"
     }
-    # consul = {}
+    consul = {}
   }
 }
 
-# provider "consul" {
-#   address     = var.CONSUL_IP
-#   datacenter  = var.CONSUL_DC
-#   token       = var.CONSUL_TOKEN
-# }
+provider "consul" {
+  address     = var.CONSUL_IP
+  datacenter  = var.CONSUL_DC
+  token       = var.CONSUL_TOKEN
+}
 
 provider "aws" {
   region      = var.AWS_REGION
