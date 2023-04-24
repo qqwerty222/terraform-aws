@@ -28,12 +28,6 @@ variable "instance_class" {
     description = "Similar to instance_type, example: db.t3.micro"
 }
 
-variable "secrets_manager" {
-    type        = string
-    default     = false
-    description = "If true use AWS SM to store predefined user secrets"
-}
-
 variable "username" {
     type        = string
     default     = null
@@ -52,6 +46,12 @@ variable "parameter_group_name" {
     description = "Name of the DB parameter group to associate"
 }
 
+variable "subnet_group" {
+    type        = string
+    default     = null
+    description = "Name of the subnet group to associate"
+}
+
 variable "publicly_accessible" {
     type        = string
     default     = false
@@ -62,5 +62,5 @@ variable "security_groups" {
     type        = list
     default     = null
     description = "List of security groups to associate"
-  
 }
+
