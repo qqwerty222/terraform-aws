@@ -1,0 +1,16 @@
+network/.terraform
+network/.terraform.lock.hcl
+
+security_groups/.terraform
+security_groups/.terraform.lock.hcl
+
+ssh_keys/.terraform
+ssh_keys/.terraform.lock.hcl
+
+ec2/.terraform
+ec2/.terraform.lock.hcl
+
+rds/.terraform/
+rds/.terraform.lock.hcl
+
+env_vars.sh
