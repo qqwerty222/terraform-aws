@@ -5,7 +5,7 @@ variable "name" {
 }
 
 variable "allocated_storage" {
-    type        = string
+    type        = number
     default     = null
     description = "Actual capacity of database in GB"
 }
@@ -14,7 +14,6 @@ variable "engine" {
     type        = string
     default     = null
     description = "Name of the sql engine, can be: mysql, mariadb, aurora-mysql etc."
-  
 }
 
 variable "engine_version" {
