@@ -18,7 +18,6 @@ module "instance" {
     password                    = var.ADMIN_PASSWORD
 
     subnet_group                = module.subnet_group.id
-
     depends_on = [
       module.subnet_group
     ]
