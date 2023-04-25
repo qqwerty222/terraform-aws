@@ -1,0 +1,56 @@
+pipeline {
+
+    agent {label 'terraform'}
+    environment {
+        TF_VAR_PROJECT_NAME="dns-deploy"
+        
+        TF_VAR_AWS_ACCESS_KEY=credentials('aws_access_key')
+        TF_VAR_AWS_SECRET_KEY=credentials('aws_secret_key')
+        TF_VAR_AWS_AVAILABILITY_ZONE="eu-central-1b"
+        TF_VAR_AWS_REGION="eu-central-1"
+        
+        TF_VAR_CONSUL_DC="dc1"
+        TF_VAR_CONSUL_IP="10.0.2.15:8500"
+        TF_VAR_CONSUL_TOKEN=credentials('consul_token')
+        
+        TF_VAR_PUBLIC_KEY=credentials('ssh_dns_pub')
+    }
+    
+    stages { 
+        stage('Prepare Codebase'){
+            steps{
+                cleanWs()
+                checkout scm: [$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: 
+                [[credentialsId: 'ssh-github', url: 'git@github.com:qqwerty222/terraform-aws.git' ]]]
+            }
+        }
+        stage('Destroy ec2'){
+            steps {
+                dir('dns-deploy/ec2') {
+                    sh 'terraform init'
+                    sh 'terraform destroy -auto-approve'
+                }
+            }
+        }
+        stage('Destroy sec groups ssh keys'){
+            steps {
+                dir('dns-deploy/ssh_keys') {
+                    sh 'terraform init'
+                    sh 'terraform destroy -auto-approve'
+                }
+                dir('dns-deploy/security_groups') {
+                    sh 'terraform init'
+                    sh 'terraform destroy -auto-approve'
+                }
+            }
+        }
+        stage('Destroy network'){
+            steps {
+                dir('dns-deploy/network') {
+                    sh 'terraform init'
+                    sh 'terraform destroy -auto-approve'
+                }
+            }
+        }
+    }
+}
