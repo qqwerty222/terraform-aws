@@ -14,12 +14,25 @@ module "instance" {
     engine_version              = jsondecode(data.consul_keys.db1.var.config)["engine_version"]
     instance_class              = jsondecode(data.consul_keys.db1.var.config)["instance_class"]
     
-    username                    = jsondecode(data.consul_keys.db1.var.config)["username"]
+    username                    = var.ADMIN_USERNAME
     password                    = var.ADMIN_PASSWORD
 
     subnet_group                = module.subnet_group.id
+    multi_az                    = jsondecode(data.consul_keys.db1.var.config)["multi_az"]
+
     depends_on = [
       module.subnet_group
+    ]
+}
+
+module "consul_push" {
+    source = "../../modules/consul_kv"
+
+    push_lists = [
+        { path = "${var.PROJECT_NAME}/rds/instance/id",             value = module.instance.id },
+        { path = "${var.PROJECT_NAME}/rds/instance/endpoint",       value = module.instance.endpoint },
+        { path = "${var.PROJECT_NAME}/rds/instance/multi_az",       value = module.instance.multi_az },
+        { path = "${var.PROJECT_NAME}/rds/instance/av_zone",        value = module.instance.av_zone },
     ]
 }
 

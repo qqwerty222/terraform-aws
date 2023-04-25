@@ -45,6 +45,12 @@ variable "CONSUL_TOKEN" {
     description = "Access token"
 }
 
+variable "ADMIN_USERNAME" {
+    type        = string
+    default     = null
+    description = "Username for DB admin account"
+}
+
 variable "ADMIN_PASSWORD" {
     type        = string
     default     = null

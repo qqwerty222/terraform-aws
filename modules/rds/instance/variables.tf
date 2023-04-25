@@ -31,7 +31,7 @@ variable "instance_class" {
 variable "username" {
     type        = string
     default     = null
-    description = "Name of the predefined user"
+    description = "Password for the predefined user"
 }
 
 variable "password" {
@@ -50,6 +50,12 @@ variable "subnet_group" {
     type        = string
     default     = null
     description = "Name of the subnet group to associate"
+}
+
+variable "multi_az" {
+    type        = bool
+    default     = false
+    description = "If true db instance will be deployed in multiple availability zones"
 }
 
 variable "publicly_accessible" {
