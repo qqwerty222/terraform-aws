@@ -1,5 +1,8 @@
 database/.terraform
 database/.terraform.lock.hcl
 
+ec2-bastion/.terraform
+ec2-bastion/.terraform.lock.hcl
+
 network/.terraform
 network/.terraform.lock.hcl
