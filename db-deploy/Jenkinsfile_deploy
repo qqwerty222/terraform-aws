@@ -1,0 +1,61 @@
+pipeline {
+
+    agent {label 'terraform'}
+    // triggers { pollSCM('* * * * *') }
+    environment {
+        TF_VAR_PROJECT_NAME="db-deploy"
+        
+        TF_VAR_AWS_ACCESS_KEY=credentials('aws_access_key')
+        TF_VAR_AWS_SECRET_KEY=credentials('aws_secret_key')
+        TF_VAR_AWS_AVAILABILITY_ZONE="eu-central-1b"
+        TF_VAR_AWS_REGION="eu-central-1"
+        
+        TF_VAR_CONSUL_DC="dc1"
+        TF_VAR_CONSUL_IP="10.0.2.15:8500"
+        TF_VAR_CONSUL_TOKEN=credentials('consul_token')
+    }
+    
+    stages { 
+        stage('Prepare Terraform Codebase'){
+            steps{
+                cleanWs()
+                checkout scm: [$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: 
+                [[credentialsId: 'ssh-github', url: 'git@github.com:qqwerty222/terraform-aws.git' ]]]
+            }
+        }
+        stage('Deploy network'){
+            steps {
+                dir('db-deploy/network') {
+                    sh 'terraform init'
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+        stage('Deploy sec groups'){
+            steps {
+                dir('db-deploy/security_groups') {
+                    sh 'terraform init'
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+        stage('Deploy database'){
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'db1-admin-logpass', passwordVariable: 'TF_VAR_ADMIN_PASSWORD', usernameVariable: 'TF_VAR_ADMIN_USERNAME')]) {
+                    dir('db-deploy/database') {
+                        sh 'terraform init'
+                        sh 'terraform apply -auto-approve'
+                    }
+                }
+            }
+        }
+        stage('Deploy ec2-bastion'){
+            steps {
+                dir('db-deploy/ec2-bastion') {
+                    sh 'terraform init'
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+    }
+}
