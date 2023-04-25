@@ -6,3 +6,7 @@ ec2-bastion/.terraform.lock.hcl
 
 network/.terraform
 network/.terraform.lock.hcl
+
+security_groups/.terraform
+security_groups/.terraform.lock.hcl
+

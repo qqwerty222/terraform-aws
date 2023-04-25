@@ -11,7 +11,7 @@ resource "aws_db_instance" "common" {
     parameter_group_name        = var.parameter_group_name
     skip_final_snapshot         = true
     db_subnet_group_name        = var.subnet_group
-        multi_az                = var.multi_az
+    multi_az                    = var.multi_az
     publicly_accessible         = var.publicly_accessible
     vpc_security_group_ids      = var.security_groups
 }

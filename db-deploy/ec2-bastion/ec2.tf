@@ -11,11 +11,7 @@ module "ec2_bastion" {
 
     key_name            = jsondecode(data.consul_keys.ec2_bastion.var.config)["key_name"]
 
-    # sec_group_ids       = [
-    #     data.consul_keys.security_groups.var.ssh_from_internet_id,
-    #     data.consul_keys.security_groups.var.dns_local_id,
-    #     data.consul_keys.security_groups.var.ping_id
-    # ]
+    sec_group_ids       = [ data.consul_keys.security_groups.var.bastion_sec_group ]
 
     instance_name       = jsondecode(data.consul_keys.ec2_bastion.var.config)["instance_name"]
 }
@@ -41,5 +37,12 @@ data "consul_keys" "ec2_bastion" {
     key { 
         name = "config" 
         path = "${var.PROJECT_NAME}/ec2-bastion/config"
+    }
+}
+
+data "consul_keys" "security_groups" {
+    key { 
+        name = "bastion_sec_group" 
+        path = "${var.PROJECT_NAME}/security_groups/bastion_sec_group/id"
     }
 }

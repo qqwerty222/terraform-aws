@@ -2,8 +2,8 @@ output "id" {
     value = aws_db_instance.common.id
 }
 
-output "endpoint" {
-    value = aws_db_instance.common.endpoint
+output "address" {
+    value = aws_db_instance.common.address
 }
 
 output "multi_az" {

@@ -13,12 +13,13 @@ module "instance" {
     engine                      = jsondecode(data.consul_keys.db1.var.config)["engine"]
     engine_version              = jsondecode(data.consul_keys.db1.var.config)["engine_version"]
     instance_class              = jsondecode(data.consul_keys.db1.var.config)["instance_class"]
-    
+
     username                    = var.ADMIN_USERNAME
     password                    = var.ADMIN_PASSWORD
 
     subnet_group                = module.subnet_group.id
     multi_az                    = jsondecode(data.consul_keys.db1.var.config)["multi_az"]
+    security_groups             = [ data.consul_keys.security_groups.var.db_sec_group ]
 
     depends_on = [
       module.subnet_group
@@ -30,7 +31,7 @@ module "consul_push" {
 
     push_lists = [
         { path = "${var.PROJECT_NAME}/rds/instance/id",             value = module.instance.id },
-        { path = "${var.PROJECT_NAME}/rds/instance/endpoint",       value = module.instance.endpoint },
+        { path = "${var.PROJECT_NAME}/rds/instance/address",        value = module.instance.address },
         { path = "${var.PROJECT_NAME}/rds/instance/multi_az",       value = module.instance.multi_az },
         { path = "${var.PROJECT_NAME}/rds/instance/av_zone",        value = module.instance.av_zone },
     ]
@@ -47,6 +48,13 @@ data "consul_keys" "network" {
     key { 
         name = "subnets" 
         path = "${var.PROJECT_NAME}/network/subnet/ids"
+    }
+}
+
+data "consul_keys" "security_groups" {
+    key { 
+        name = "db_sec_group" 
+        path = "${var.PROJECT_NAME}/security_groups/db_sec_group/id"
     }
 }
 
