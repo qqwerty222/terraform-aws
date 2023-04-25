@@ -1,6 +1,6 @@
 terraform {
   backend "local" {
-    path      = "/srv/terraform_state/network/terraform.tfstate"
+    path      = "/srv/db-deploy/terraform_state/network/terraform.tfstate"
   }
 
   required_providers {
