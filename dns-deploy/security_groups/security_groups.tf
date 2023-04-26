@@ -59,9 +59,9 @@ module "consul_push" {
     source = "../../modules/consul_kv"
 
     push_lists  = [
-        { path  = "dns-deploy/security_groups/ssh_from_internet/id",    value = module.ssh_from_internet.id},
-        { path  = "dns-deploy/security_groups/http_local/id",           value = module.http_local.id},
-        { path  = "dns-deploy/security_groups/dns_local/id",            value = module.dns_local.id},
-        { path  = "dns-deploy/security_groups/ping/id",                 value = module.ping.id},
+        { path  = "${var.PROJECT_NAME}/security_groups/ssh_from_internet/id",    value = module.ssh_from_internet.id},
+        { path  = "${var.PROJECT_NAME}/security_groups/http_local/id",           value = module.http_local.id},
+        { path  = "${var.PROJECT_NAME}/security_groups/dns_local/id",            value = module.dns_local.id},
+        { path  = "${var.PROJECT_NAME}/security_groups/ping/id",                 value = module.ping.id},
     ]
 }

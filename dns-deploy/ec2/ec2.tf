@@ -69,27 +69,27 @@ module "consul_push" {
     source = "../../modules/consul_kv"
 
     push_lists = [
-        { path = "dns-deploy/ec2/dns/ids",                  value = jsonencode(module.dns.ids)},
-        { path = "dns-deploy/ec2/dns/private_ips",          value = jsonencode(module.dns.private_ips)},
-        { path = "dns-deploy/ec2/dns/public_ips",           value = jsonencode(module.dns.public_ips)},
+        { path = "${var.PROJECT_NAME}/ec2/dns/ids",                  value = jsonencode(module.dns.ids)},
+        { path = "${var.PROJECT_NAME}/ec2/dns/private_ips",          value = jsonencode(module.dns.private_ips)},
+        { path = "${var.PROJECT_NAME}/ec2/dns/public_ips",           value = jsonencode(module.dns.public_ips)},
 
-        { path = "dns-deploy/ec2/webservers/ids",           value = jsonencode(module.webservers.ids)},
-        { path = "dns-deploy/ec2/webservers/private_ips",   value = jsonencode(module.webservers.private_ips)},
-        { path = "dns-deploy/ec2/webservers/public_ips",    value = jsonencode(module.webservers.public_ips)},
+        { path = "${var.PROJECT_NAME}/ec2/webservers/ids",           value = jsonencode(module.webservers.ids)},
+        { path = "${var.PROJECT_NAME}/ec2/webservers/private_ips",   value = jsonencode(module.webservers.private_ips)},
+        { path = "${var.PROJECT_NAME}/ec2/webservers/public_ips",    value = jsonencode(module.webservers.public_ips)},
 
-        { path = "dns-deploy/ec2/users/ids",                value = jsonencode(module.users.ids)},
-        { path = "dns-deploy/ec2/users/private_ips",        value = jsonencode(module.users.private_ips)},
-        { path = "dns-deploy/ec2/users/public_ips",         value = jsonencode(module.users.public_ips)},
+        { path = "${var.PROJECT_NAME}/ec2/users/ids",                value = jsonencode(module.users.ids)},
+        { path = "${var.PROJECT_NAME}/ec2/users/private_ips",        value = jsonencode(module.users.private_ips)},
+        { path = "${var.PROJECT_NAME}/ec2/users/public_ips",         value = jsonencode(module.users.public_ips)},
         
-        { path = "dns-deploy/ec2/hosts",                    value = templatefile("../templates/hosts.tpl",{
+        { path = "${var.PROJECT_NAME}/ec2/hosts",                    value = templatefile("../templates/hosts.tpl",{
                                                                         dns_ips         = module.dns.public_ips,
                                                                         webserver_ips   = module.webservers.public_ips,
                                                                         user_ips        = module.users.public_ips                      
-                                                                    })},
-        { path = "dns-deploy/ec2/gvars_all",                value = templatefile("../templates/gvars_all.tpl",{
+                                                                     })},
+        { path = "${var.PROJECT_NAME}/ec2/gvars_all",                value = templatefile("../templates/gvars_all.tpl",{
                                                                         dns_ips         = module.dns.private_ips,
                                                                         webserver_ips   = module.webservers.private_ips,
                                                                         cidr_block      = data.consul_keys.network.var.subnet_cidr                   
-                                                                    })},
+                                                                     })},
     ]
 }

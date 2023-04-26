@@ -11,6 +11,6 @@ module "consul_push" {
     source = "../../modules/consul_kv"
 
     push_lists = [
-        { path = "dns-deploy/ssh_keys/common/id", value = module.ssh_key.id },
+        { path = "${var.PROJECT_NAME}/ssh_keys/common/id", value = module.ssh_key.id },
     ]
 }
