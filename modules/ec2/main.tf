@@ -14,7 +14,7 @@ resource "aws_instance" "common" {
     user_data                   = var.user_data
 
     tags = {
-        Name = "${var.instance_name}-${count.index}"
+        Name = "${var.instance_name}-${count.index + 1}"
     }
 }
 
