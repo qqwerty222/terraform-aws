@@ -1,3 +1,6 @@
+database/.terraform
+database/.terraform.lock.hcl
+
 ec2/.terraform
 ec2/.terraform.lock.hcl
 
