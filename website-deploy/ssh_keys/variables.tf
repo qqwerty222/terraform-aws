@@ -45,9 +45,16 @@ variable "CONSUL_TOKEN" {
     description = "Access token to consul"
 }
 
-variable "PUBLIC_KEY" {
+variable "PROXY_PUBLIC_KEY" {
     type        = string
     default     = null
     sensitive   = true
-    description = "Public key to assign"
+    description = "Public key for proxy instances"
+}
+
+variable "WEBSITE_PUBLIC_KEY" {
+    type        = string
+    default     = null
+    sensitive   = true
+    description = "Public key for website instances"
 }
