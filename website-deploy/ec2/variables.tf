@@ -44,3 +44,17 @@ variable "CONSUL_TOKEN" {
     sensitive   = true
     description = "Access token"
 }
+
+variable "DD_API_KEY" {
+    type        = string
+    default     = "test"
+    sensitive   = true
+    description = "Datadog API key"
+}
+
+variable "DD_APP_KEY" {
+    type        = string
+    default     = null
+    sensitive   = true
+    description = "Datadog APP key"
+}
