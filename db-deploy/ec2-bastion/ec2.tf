@@ -52,6 +52,6 @@ data "consul_keys" "security_groups" {
 data "cloudinit_config" "ec2_bastion" {
     part {
         content_type = "text/cloud-config"
-        content = templatefile("./templates/proxy_cloudinit.tpl", {})
+        content = templatefile("./templates/ec2_bastion_cloudinit.tpl", {})
     }
 }
