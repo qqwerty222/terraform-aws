@@ -150,7 +150,7 @@ data "consul_keys" "security_groups" {
     }   
     key { 
         name = "ssh" 
-        path = "${var.PROJECT_NAME}/security_groups/ansible/id"
+        path = "${var.PROJECT_NAME}/security_groups/ssh/id"
     }
 }
 
