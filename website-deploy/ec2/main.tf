@@ -127,11 +127,11 @@ data "consul_keys" "network" {
 data "consul_keys" "ssh_keys" {
     key { 
         name = "proxy" 
-        path = "${var.PROJECT_NAME}/network/ssh_keys/proxy_key/id"
+        path = "${var.PROJECT_NAME}/ssh_keys/proxy_key/id"
     }
     key { 
         name = "website" 
-        path = "${var.PROJECT_NAME}/network/ssh_keys/proxy_key/id"
+        path = "${var.PROJECT_NAME}/ssh_keys/website_key/id"
     }
 }
 
