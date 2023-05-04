@@ -44,16 +44,3 @@ variable "CONSUL_TOKEN" {
     sensitive   = true
     description = "Access token"
 }
-
-variable "ADMIN_USERNAME" {
-    type        = string
-    default     = null
-    description = "Username for DB admin account"
-}
-
-variable "ADMIN_PASSWORD" {
-    type        = string
-    default     = null
-    sensitive   = true
-    description = "Password for DB admin account"
-}

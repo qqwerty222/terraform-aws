@@ -80,12 +80,12 @@ write_files:
       logs:
         - type: file
           path: /var/log/nginx/access.log
-          service: nginx
+          service: proxy
           source: nginx
 
         - type: file
           path: /var/log/nginx/error.log
-          service: nginx
+          service: proxy
           source: nginx
 
 

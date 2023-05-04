@@ -41,12 +41,13 @@ module "website" {
 
     sec_group_ids       = [ 
         data.consul_keys.security_groups.var.datadog,
-        data.consul_keys.security_groups.var.website,  
+        data.consul_keys.security_groups.var.website, 
 
+        data.consul_keys.security_groups.var.ansible,
         data.consul_keys.security_groups.var.ssh, 
     ]
 
-    # user_data           = data.cloudinit_config.website.rendered
+    user_data           = data.cloudinit_config.website.rendered
 }
 
 module "db" {
@@ -78,13 +79,13 @@ module "consul_push" {
     source = "../../modules/consul_kv"
 
     push_lists = [
-        { path = "${var.PROJECT_NAME}/ec2/proxy/ids",                    value = jsonencode(module.proxy.ids) },
-        { path = "${var.PROJECT_NAME}/ec2/proxy/private_ips",                  value = jsonencode(module.proxy.private_ips) },
-        { path = "${var.PROJECT_NAME}/ec2/proxy/public_ips",                   value = jsonencode(module.proxy.public_ips) },
+        { path = "${var.PROJECT_NAME}/ec2/proxy/ids",                       value = jsonencode(module.proxy.ids) },
+        { path = "${var.PROJECT_NAME}/ec2/proxy/private_ips",               value = jsonencode(module.proxy.private_ips) },
+        { path = "${var.PROJECT_NAME}/ec2/proxy/public_ips",                value = jsonencode(module.proxy.public_ips) },
 
         { path = "${var.PROJECT_NAME}/ec2/website/ids",                     value = jsonencode(module.website.ids) },
-        { path = "${var.PROJECT_NAME}/ec2/website/private_ips",                  value = jsonencode(module.website.private_ips) },
-        { path = "${var.PROJECT_NAME}/ec2/website/public_ips",                   value = jsonencode(module.website.public_ips) },
+        { path = "${var.PROJECT_NAME}/ec2/website/private_ips",             value = jsonencode(module.website.private_ips) },
+        { path = "${var.PROJECT_NAME}/ec2/website/public_ips",              value = jsonencode(module.website.public_ips) },
         
         { path = "${var.PROJECT_NAME}/ec2/db/ids",                          value = jsonencode(module.website.ids) },
         { path = "${var.PROJECT_NAME}/ec2/db/private_ips",                  value = jsonencode(module.website.private_ips) },
@@ -153,8 +154,13 @@ data "consul_keys" "security_groups" {
     }
 
     key { 
-        name = "ssh" 
+        name = "ansible" 
         path = "${var.PROJECT_NAME}/security_groups/ssh/id"
+    }    
+
+    key { 
+        name = "ssh" 
+        path = "${var.PROJECT_NAME}/security_groups/ansible/id"
     }
 }
 
@@ -170,16 +176,16 @@ data "cloudinit_config" "proxy" {
     }
 }
 
-# data "cloudinit_config" "website" {
-#     part {
-#         content_type = "text/cloud-config"
+data "cloudinit_config" "website" {
+    part {
+        content_type = "text/cloud-config"
 
-#         content = templatefile("./templates/website_cloudinit.tpl", {
-#             dd_api_key      = var.DD_API_KEY
-#             dd_host_tags    = "service:website, region:${var.AWS_REGION}, availability_zone:${jsondecode(data.consul_keys.ec2_config.var.website)["av_zone"]}"
-#         })
-#     }
-# }
+        content = templatefile("./templates/website_cloudinit.tpl", {
+            dd_api_key      = var.DD_API_KEY
+            dd_host_tags    = "service:website, region:${var.AWS_REGION}, availability_zone:${jsondecode(data.consul_keys.ec2_config.var.website)["av_zone"]}"
+        })
+    }
+}
 
 data "cloudinit_config" "db" {
     part {
