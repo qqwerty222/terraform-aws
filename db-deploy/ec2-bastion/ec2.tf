@@ -13,6 +13,8 @@ module "ec2_bastion" {
 
     sec_group_ids       = [ data.consul_keys.security_groups.var.bastion_sec_group ]
 
+    user_data           = data.cloudinit_config.ec2_bastion.rendered 
+
     instance_name       = jsondecode(data.consul_keys.ec2_bastion.var.config)["instance_name"]
 }
 
@@ -44,5 +46,12 @@ data "consul_keys" "security_groups" {
     key { 
         name = "bastion_sec_group" 
         path = "${var.PROJECT_NAME}/security_groups/bastion_sec_group/id"
+    }
+}
+
+data "cloudinit_config" "ec2_bastion" {
+    part {
+        content_type = "text/cloud-config"
+        content = templatefile("./templates/proxy_cloudinit.tpl", {})
     }
 }
