@@ -20,7 +20,6 @@ module "consul_push" {
     source = "../../modules/consul_kv"
 
     push_lists = [
-        { path = "${var.PROJECT_NAME}/ssh_keys/db_key/id", value = module.db_key.id },
         { path = "${var.PROJECT_NAME}/ssh_keys/proxy_key/id", value = module.proxy_key.id },
         { path = "${var.PROJECT_NAME}/ssh_keys/website_key/id", value = module.website_key.id },
     ]
