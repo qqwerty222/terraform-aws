@@ -12,7 +12,7 @@ module "proxy" {
     public_ip           = jsondecode(data.consul_keys.ec2_config.var.proxy)["public_ip"]
     subnet_id           = jsondecode(data.consul_keys.network.var.proxy-subnets)[0]
 
-    key_name            = jsondecode(data.consul_keys.ec2_config.var.proxy)["key_name"]
+    key_name            = data.consul_keys.ssh_keys.var.proxy
 
     sec_group_ids       = [ 
         data.consul_keys.security_groups.var.datadog,
@@ -37,7 +37,7 @@ module "website" {
     public_ip           = jsondecode(data.consul_keys.ec2_config.var.website)["public_ip"]
     subnet_id           = jsondecode(data.consul_keys.network.var.website-subnets)[0]
 
-    key_name            = jsondecode(data.consul_keys.ec2_config.var.website)["key_name"]
+    key_name            = data.consul_keys.ssh_keys.var.website
 
     sec_group_ids       = [ 
         data.consul_keys.security_groups.var.datadog,
@@ -63,7 +63,7 @@ module "db" {
     public_ip           = jsondecode(data.consul_keys.ec2_config.var.db)["public_ip"]
     subnet_id           = jsondecode(data.consul_keys.network.var.db-subnets)[0]
 
-    key_name            = jsondecode(data.consul_keys.ec2_config.var.db)["key_name"]
+    key_name            = data.consul_keys.ssh_keys.var.proxy
 
     sec_group_ids       = [ 
         data.consul_keys.security_groups.var.datadog,
@@ -128,16 +128,16 @@ data "consul_keys" "network" {
     }
 }
 
-# data "consul_keys" "ssh_keys" {
-#     key { 
-#         name = "proxy_key" 
-#         path = "${var.PROJECT_NAME}/network/ssh_keys/proxy_key/id"
-#     }
-#     key { 
-#         name = "website_key" 
-#         path = "${var.PROJECT_NAME}/network/ssh_keys/proxy_key/id"
-#     }
-# }
+data "consul_keys" "ssh_keys" {
+    key { 
+        name = "proxy" 
+        path = "${var.PROJECT_NAME}/network/ssh_keys/proxy_key/id"
+    }
+    key { 
+        name = "website" 
+        path = "${var.PROJECT_NAME}/network/ssh_keys/proxy_key/id"
+    }
+}
 
 data "consul_keys" "security_groups" {
     key { 
