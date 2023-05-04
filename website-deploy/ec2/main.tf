@@ -17,7 +17,6 @@ module "proxy" {
     sec_group_ids       = [ 
         data.consul_keys.security_groups.var.datadog,
         data.consul_keys.security_groups.var.proxy,
-        
         data.consul_keys.security_groups.var.ssh,  
     ]
 
@@ -42,8 +41,6 @@ module "website" {
     sec_group_ids       = [ 
         data.consul_keys.security_groups.var.datadog,
         data.consul_keys.security_groups.var.website, 
-
-        data.consul_keys.security_groups.var.ansible,
         data.consul_keys.security_groups.var.ssh, 
     ]
 
@@ -68,7 +65,6 @@ module "db" {
     sec_group_ids       = [ 
         data.consul_keys.security_groups.var.datadog,
         data.consul_keys.security_groups.var.website,  
-
         data.consul_keys.security_groups.var.ssh, 
     ]
 
@@ -151,13 +147,7 @@ data "consul_keys" "security_groups" {
     key { 
         name = "datadog" 
         path = "${var.PROJECT_NAME}/security_groups/datadog/id"
-    }
-
-    key { 
-        name = "ansible" 
-        path = "${var.PROJECT_NAME}/security_groups/ssh/id"
-    }    
-
+    }   
     key { 
         name = "ssh" 
         path = "${var.PROJECT_NAME}/security_groups/ansible/id"
